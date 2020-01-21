@@ -10,4 +10,4 @@ A beautiul and functional multiplataform application.
 
 ## What was done
 
-![Running on an iPhone 11](/screenshots/captura1.png)
+![Running on an iPhone 11](/screenshots/captura2.png)
