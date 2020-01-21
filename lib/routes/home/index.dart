@@ -25,6 +25,11 @@ class Home extends StatelessWidget {
                 child: CitiesListHeader(text: '🔥 Hot Places'),
               ),
               CitiesList(),
+              Padding(
+                padding: EdgeInsets.all(15.0),
+                child: CitiesListHeader(text: 'Hotels'),
+              ),
+              CitiesList().hotels()
             ],
           ),
         ),
