@@ -11,3 +11,4 @@ A beautiul and functional multiplataform application.
 ## What was done
 
 ![Running on an iPhone 11](/screenshots/captura4.png)
+![Running on an iPhone 11](/screenshots/captura-locations-1.png)
