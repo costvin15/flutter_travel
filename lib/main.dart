@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel/routes/home/index.dart';
+import 'package:travel/routes/locations/index.dart';
 
 main(List<String> args) {
   runApp(App());
@@ -11,7 +12,8 @@ class App extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/': (context) => Home()
+        '/': (context) => Home(),
+        '/locations': (context) => Locations()
       },
       theme: ThemeData(
         textTheme: TextTheme(
