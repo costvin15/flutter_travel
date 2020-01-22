@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -112,6 +113,32 @@ class _CitiesCardScore extends StatelessWidget {
   }
 }
 
+class _CitiesCardContainer extends StatelessWidget {
+  final Widget child;
+
+  _CitiesCardContainer({
+    Key key,
+    this.child
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(color: Colors.grey, blurRadius: 2.0)
+        ],
+        borderRadius: BorderRadius.circular(15.0)
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10.0),
+        child: child
+      )
+    );
+  }
+}
+
 class CitiesCard extends StatelessWidget {
   final String title, description, image;
   final int price;
@@ -130,64 +157,88 @@ class CitiesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final currencyFormat = intl.NumberFormat.compactSimpleCurrency();
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(color: Colors.grey, blurRadius: 2.0)
-        ],
-        borderRadius: BorderRadius.circular(15.0)
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10.0),
-        child: Container(
-          width: 200,
-          child: Column(
-            children: <Widget>[
-              Stack(
-                children: <Widget>[
-                  Container(
-                    width: 200,
-                    height: 250,
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Image.asset(this.image)
-                    ),
+    return _CitiesCardContainer(
+      child: Container(
+        width: 200,
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Container(
+                  width: 200,
+                  height: 250,
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: Image.asset(this.image)
                   ),
-                  _CitiesCardScore(score: this.score)
+                ),
+                _CitiesCardScore(score: this.score)
+              ],
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 5.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(this.title, style: Theme.of(context).textTheme.title, overflow: TextOverflow.ellipsis),
+                  Text(this.description, style: Theme.of(context).textTheme.caption, overflow: TextOverflow.ellipsis),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget> [
+                      Text(currencyFormat.format(this.price), style: Theme.of(context).textTheme.title.apply(color: Colors.blue)),
+                      _CitiesCardStars(score: this.score)
+                    ]
+                  )
                 ],
               ),
-              Container(
-                alignment: Alignment.topLeft,
-                padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0, bottom: 5.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(this.title, style: Theme.of(context).textTheme.title, overflow: TextOverflow.ellipsis),
-                    Text(this.description, style: Theme.of(context).textTheme.caption, overflow: TextOverflow.ellipsis),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget> [
-                        Text(currencyFormat.format(this.price), style: Theme.of(context).textTheme.title.apply(color: Colors.blue)),
-                        _CitiesCardStars(score: this.score)
-                      ]
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
   }
 
   static Widget compact({
+    @required BuildContext context,
     @required String title,
     @required String image
   }){
-    return Container(
-      child: Image.asset(image),
+    return _CitiesCardContainer(
+      child: Container(
+        width: 150,
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Container(
+                  width: 150,
+                  height: 140,
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: Image.asset(image),
+                  ),
+                ),
+                Positioned(
+                  bottom: 15,
+                  child: ClipRect(
+                    child: Container(
+                      padding: EdgeInsets.only(top: 5.0, bottom: 5.0, left: 10.0, right: 5.0),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                        child: Text(
+                          title,
+                          style: Theme.of(context).textTheme.title.apply(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
