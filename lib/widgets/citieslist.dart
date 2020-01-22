@@ -56,8 +56,24 @@ class CitiesList extends StatelessWidget {
   List<Map<String, String>> hotelsData = [
     {
       'title': 'Santa Blue',
+      'image': 'assets/venice-beach.jpg'
+    },
+    {
+      'title': 'Yellow+',
       'image': 'assets/santa-monica-pier.jpg'
-    }
+    },
+    {
+      'title': 'Gordon',
+      'image': 'assets/santa-monica-pier.jpg'
+    },
+    {
+      'title': 'Santa Blue',
+      'image': 'assets/santa-monica-pier.jpg'
+    },
+    {
+      'title': 'Santa Blue',
+      'image': 'assets/santa-monica-pier.jpg'
+    },
   ];
 
   @override
@@ -95,17 +111,26 @@ class CitiesList extends StatelessWidget {
   Widget hotels(){
     return Container(
       constraints: BoxConstraints(
-        minHeight: 330,
-        maxHeight: 340
+        minHeight: 150,
+        maxHeight: 150
       ),
       child: ListView.builder(
         shrinkWrap: true,
         itemCount: hotelsData.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index){
-          return CitiesCard.compact(
-            title: hotelsData[index]['title'],
-            image: hotelsData[index]['image']
+          return Container(
+            padding: EdgeInsets.only(
+              top: 5.0,
+              bottom: 5.0,
+              left: 15.0,
+              right: index + 1 == hotelsData.length ? 15 : 0
+            ),
+            child: CitiesCard.compact(
+              context: context,
+              title: hotelsData[index]['title'],
+              image: hotelsData[index]['image']
+            ),
           );
         },
       ),
