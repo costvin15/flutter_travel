@@ -53,7 +53,7 @@ class CitiesList extends StatelessWidget {
     }
   ];
 
-  List<Map<String, String>> hotelsData = [
+  final List<Map<String, String>> hotelsData = [
     {
       'title': 'Santa Blue',
       'image': 'assets/venice-beach.jpg'
@@ -95,12 +95,17 @@ class CitiesList extends StatelessWidget {
               left: 15.0,
               right: index + 1 == hotPlacesData.length ? 15 : 0
             ),
-            child: CitiesCard(
-              title: hotPlacesData[index]['title'],
-              description: hotPlacesData[index]['description'],
-              image: hotPlacesData[index]['image'],
-              price: hotPlacesData[index]['price'],
-              score: hotPlacesData[index]['score'],
+            child: GestureDetector(
+              child: CitiesCard(
+                title: hotPlacesData[index]['title'],
+                description: hotPlacesData[index]['description'],
+                image: hotPlacesData[index]['image'],
+                price: hotPlacesData[index]['price'],
+                score: hotPlacesData[index]['score'],
+              ),
+              onTap: (){
+                Navigator.pushNamed(context, '/locations');
+              },
             ),
           );
         },
@@ -126,10 +131,15 @@ class CitiesList extends StatelessWidget {
               left: 15.0,
               right: index + 1 == hotelsData.length ? 15 : 0
             ),
-            child: CitiesCard.compact(
-              context: context,
-              title: hotelsData[index]['title'],
-              image: hotelsData[index]['image']
+            child: GestureDetector(
+              child: CitiesCard.compact(
+                context: context,
+                title: hotelsData[index]['title'],
+                image: hotelsData[index]['image']
+              ),
+              onTap: (){
+                Navigator.pushNamed(context, '/locations');
+              },
             ),
           );
         },
